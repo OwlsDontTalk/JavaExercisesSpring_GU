@@ -25,9 +25,11 @@ public class Profile extends HttpServlet{
         String id = req.getParameter("id");
         if(id==null)
         {
+            resp.getWriter().println("<table>");
             for (User u:  userRepository.findAll()) {
-                resp.getWriter().println("<p> User " + u.getId() + " : " + u.getUsername() + "</p>");
+                resp.getWriter().println("<tr> <td> User " + u.getId() + "</td><td>" + u.getUsername() + "</td></tr>");
             }
+            resp.getWriter().println("</table>");
         }
 
         if(id!=null){
