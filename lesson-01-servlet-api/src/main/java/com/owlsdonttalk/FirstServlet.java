@@ -2,10 +2,13 @@ package com.owlsdonttalk;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/first-servlet")
-public class FirstServlet implements Servlet {
+@WebServlet("/first-servlet/")
+public class FirstServlet extends HttpServlet implements Servlet {
     private ServletConfig config;
 
     @Override
@@ -33,3 +36,5 @@ public class FirstServlet implements Servlet {
 
     }
 }
+
+
