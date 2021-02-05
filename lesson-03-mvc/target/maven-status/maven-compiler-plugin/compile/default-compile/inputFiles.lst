@@ -2,4 +2,7 @@
 /Users/owlsdonttalk/Documents/GitHub/JES_GU/lesson-03-mvc/src/main/java/com/owlsdonttalk/persist/UserRepository.java
 /Users/owlsdonttalk/Documents/GitHub/JES_GU/lesson-03-mvc/src/main/java/com/owlsdonttalk/AppConfig.java
 /Users/owlsdonttalk/Documents/GitHub/JES_GU/lesson-03-mvc/src/main/java/com/owlsdonttalk/WebInitializer.java
+/Users/owlsdonttalk/Documents/GitHub/JES_GU/lesson-03-mvc/src/main/java/com/owlsdonttalk/persist/Product.java
 /Users/owlsdonttalk/Documents/GitHub/JES_GU/lesson-03-mvc/src/main/java/com/owlsdonttalk/persist/User.java
+/Users/owlsdonttalk/Documents/GitHub/JES_GU/lesson-03-mvc/src/main/java/com/owlsdonttalk/persist/ProductRepository.java
+/Users/owlsdonttalk/Documents/GitHub/JES_GU/lesson-03-mvc/src/main/java/com/owlsdonttalk/controller/ProductController.java

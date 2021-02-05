@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <!-- Required meta tags -->
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>EShop application-l3-user</title>
+    <title>EShop application</title>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <a class="btn btn-primary" th:href="@{/user/create}">Add User</a>
+            <a class="btn btn-primary" href="user_form.html">Add User</a>
         </div>
 
         <div class="col-12">
@@ -48,12 +48,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user : ${users}" >
-                    <th th:text="${user.id}" scope="row">1</th>
-                    <td th:text="${user.username}">Alex</td>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Alex</td>
                     <td>
-                        <a class="btn btn-success" th:href="@{/user/{id}(id = ${user.id})}"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger" th:href="@{user/delete/{id}(id = ${user.id})}"><i class="far fa-trash-alt"></i></a>
+                        <a class="btn btn-success" href="user_form.html"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger" href="#"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
                 </tbody>

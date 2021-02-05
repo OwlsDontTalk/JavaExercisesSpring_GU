@@ -1,5 +1,7 @@
 package com.owlsdonttalk.controller;
 
+import com.owlsdonttalk.persist.Product;
+import com.owlsdonttalk.persist.ProductRepository;
 import com.owlsdonttalk.persist.User;
 import com.owlsdonttalk.persist.UserRepository;
 import org.slf4j.Logger;
@@ -7,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
@@ -48,22 +47,29 @@ public class UserController {
         if (user.getId() != -1) {
             logger.info("Updating user with id {}", user.getId());
             userRepository.update(user);
-        } else {
-            logger.info("Creating new user");
-            userRepository.insert(user);
         }
         return "redirect:/user";
     }
 
-    @GetMapping("/new")
-    public String create() {
-        // TODO
-        return null;
+    @GetMapping("/create")
+    public String createUser(Model model) {
+        logger.info("Creating new user");
+        return "user_form_add";
     }
 
-    @GetMapping("/{id}/delete")
-    public String remove(@PathVariable("id") Long id) {
-        // TODO
-        return null;
+    @PostMapping("/new/add")
+    public String createNewUser(@RequestParam("name") String name){
+        this.userRepository.insert(new User(name));
+        return "redirect:/user";
     }
+
+    @GetMapping("/delete/{id}")
+    public String remove(@PathVariable("id") Long id) {
+
+        logger.info("Removing user with id {}", id);
+        this.userRepository.delete(id);
+        return "redirect:/user";
+    }
+
+
 }

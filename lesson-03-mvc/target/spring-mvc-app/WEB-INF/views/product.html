@@ -26,7 +26,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">List</a>
+                <a class="nav-link" th:href="@{/product/}">List</a>
             </li>
         </ul>
     </div>
@@ -35,7 +35,7 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <a class="btn btn-primary" th:href="@{/user/create}">Add User</a>
+            <a class="btn btn-primary" th:href="@{/product/new}">Add Product</a>
         </div>
 
         <div class="col-12">
@@ -43,17 +43,21 @@
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Username</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user : ${users}" >
-                    <th th:text="${user.id}" scope="row">1</th>
-                    <td th:text="${user.username}">Alex</td>
+                <tr th:each="product : ${products}" >
+                    <th th:text="${product.id}" scope="row">1</th>
+                    <td th:text="${product.name}">Alex</td>
+                    <td th:text="${product.description}">Alex</td>
+                    <td th:text="${product.price}">Alex</td>
                     <td>
-                        <a class="btn btn-success" th:href="@{/user/{id}(id = ${user.id})}"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger" th:href="@{user/delete/{id}(id = ${user.id})}"><i class="far fa-trash-alt"></i></a>
+                        <a class="btn btn-success" th:href="@{/product/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger" th:href="@{product/delete/{id}(id = ${product.id})}"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
                 </tbody>
