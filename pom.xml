@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.owlsdonttlk</groupId>
+    <groupId>com.owlsdonttalk</groupId>
     <artifactId>JavaExercisesSpring_GU</artifactId>
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
@@ -13,12 +13,16 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <spring.version>5.3.1</spring.version>
+
     </properties>
 
 
     <modules>
         <module>lesson-01-servlet-api</module>
         <module>lesson-02-spring-init</module>
+        <module>lesson-03-mvc</module>
     </modules>
+
+
 
 </project>

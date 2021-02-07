@@ -1,0 +1,8 @@
+com/owlsdonttalk/persist/UserRepository.class
+com/owlsdonttalk/controller/ProductController.class
+com/owlsdonttalk/persist/Product.class
+com/owlsdonttalk/AppConfig.class
+com/owlsdonttalk/WebInitializer.class
+com/owlsdonttalk/persist/User.class
+com/owlsdonttalk/controller/UserController.class
+com/owlsdonttalk/persist/ProductRepository.class
