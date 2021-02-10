@@ -1,0 +1,54 @@
+package com.owlsdonttalk.persist;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.util.List;
+
+public class UserRepository {
+
+    private final EntityManagerFactory emFactory;
+    private EntityManager em;
+
+    public UserRepository(EntityManagerFactory emFactory) {
+        this.emFactory = emFactory;
+        this.em = emFactory.createEntityManager();
+        init();
+    }
+
+    private void init(){
+        User u1 = new User("name1");
+        User u2 = new User("name2");
+        User u3 = new User("name3");
+
+
+        em.getTransaction().begin();
+        em.persist(u1);
+        em.persist(u2);
+        em.persist(u3);
+    }
+
+    public List<User> findAll() {
+        List<User> userList = em.createQuery("from User", User.class)
+                .getResultList();
+
+        return userList;
+    }
+
+    public User findById(Long id) {
+        return em.find(User.class, id);
+    }
+
+    public void insert(User user) {
+        em.persist(user);
+    }
+
+    public void update(User user) {
+        em.merge(user);
+    }
+
+    public void delete(long id) {
+        em.remove(findById(id));
+    }
+
+}
