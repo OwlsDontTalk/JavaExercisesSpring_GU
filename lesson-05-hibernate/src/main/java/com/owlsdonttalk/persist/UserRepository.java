@@ -22,6 +22,7 @@ public class UserRepository {
         User u2 = new User("name2");
         User u3 = new User("name3");
 
+        em.createNativeQuery("TRUNCATE TABLE users").executeUpdate();
         em.persist(u1);
         em.persist(u2);
         em.persist(u3);
