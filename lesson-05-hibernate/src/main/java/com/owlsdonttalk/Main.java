@@ -16,12 +16,12 @@ public class Main {
                 .buildSessionFactory();
 
         final UserRepository userRepository = new UserRepository(emFactory);
-        User u0 = new User("name4");
 
+        User u0 = new User("name4");
         userRepository.insert(u0);
         u0.setUsername("name5");
         userRepository.update(u0);
-        userRepository.delete((long) u0.getId());
+        userRepository.delete((long)1);
         List<User> list = userRepository.findAll();
 
 
