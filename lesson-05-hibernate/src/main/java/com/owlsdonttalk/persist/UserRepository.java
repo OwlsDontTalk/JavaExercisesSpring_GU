@@ -12,12 +12,12 @@ public class UserRepository {
 
     public UserRepository(EntityManagerFactory emFactory) {
         this.emFactory = emFactory;
-        this.em = emFactory.createEntityManager();
-        em.getTransaction().begin();
         init();
     }
 
     private void init(){
+        em = emFactory.createEntityManager();
+        em.getTransaction().begin();
         User u1 = new User("name1");
         User u2 = new User("name2");
         User u3 = new User("name3");
@@ -27,13 +27,16 @@ public class UserRepository {
         em.persist(u2);
         em.persist(u3);
         em.getTransaction().commit();
+        em.close();
 
     }
 
     public List<User> findAll() {
+        em = emFactory.createEntityManager();
+        em.getTransaction().begin();
         List<User> userList = em.createQuery("from User", User.class)
                 .getResultList();
-
+        em.close();
         return userList;
     }
 
@@ -42,20 +45,26 @@ public class UserRepository {
     }
 
     public void insert(User user) {
+        em = emFactory.createEntityManager();
         em.getTransaction().begin();
         em.persist(user);
         em.getTransaction().commit();
+        em.close();
     }
 
     public void update(User user) {
+        em = emFactory.createEntityManager();
         em.getTransaction().begin();
         em.merge(user);
         em.getTransaction().commit();
+        em.close();
     }
 
     public void delete(long id) {
+        em = emFactory.createEntityManager();
         em.getTransaction().begin();
         em.remove(findById(id));
         em.getTransaction().commit();
+        em.close();
     }
 }
