@@ -17,5 +17,7 @@
         <property name="hibernate.format_sql">true</property>
 
         <mapping class="com.owlsdonttalk.persist.User"/>
+        <mapping class="com.owlsdonttalk.persist.Role"/>
+        <mapping class="com.owlsdonttalk.persist.Contact"/>
     </session-factory>
 </hibernate-configuration>
