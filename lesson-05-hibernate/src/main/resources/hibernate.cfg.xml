@@ -19,5 +19,6 @@
         <mapping class="com.owlsdonttalk.persist.User"/>
         <mapping class="com.owlsdonttalk.persist.Role"/>
         <mapping class="com.owlsdonttalk.persist.Contact"/>
+        <mapping class="com.owlsdonttalk.persist.Product"/>
     </session-factory>
 </hibernate-configuration>

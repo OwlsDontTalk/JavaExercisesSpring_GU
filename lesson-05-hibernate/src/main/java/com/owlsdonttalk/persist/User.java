@@ -26,6 +26,9 @@ public class User {
     @ManyToMany
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Product> products;
+
     public User() {
     }
 
