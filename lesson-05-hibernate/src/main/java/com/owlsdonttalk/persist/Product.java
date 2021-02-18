@@ -1,55 +1,79 @@
 package com.owlsdonttalk.persist;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 public class Product {
 
-
     @Id
-    private Long id;
-    private String name;
-    private String description;
-    private int price;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    public Product(String name) {
-        this.name = name;
+    @Column
+    private String title;
+
+    @Column
+    private double price;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date", nullable=false)
+    private Date created;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated", nullable = false)
+    private Date updated;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Product() {
+        updated = created = new Date();
     }
 
-    public Product() {}
+    public Product(String title, double price, User user) {
+        this.title = title;
+        this.price = price;
+        this.user = user;
+        updated = created = new Date();
+    }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public User getUser() {
+        return user;
     }
 
-    public String getDescription() {
-        return description;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }
