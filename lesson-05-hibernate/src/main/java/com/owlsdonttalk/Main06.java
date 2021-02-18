@@ -31,7 +31,7 @@ public class Main06 {
         em0.getTransaction().begin();
         List<Contact> contacts = new ArrayList<>();
         List<Product> products = new ArrayList<>();
-        //contacts.add(new Contact("home phone", "(095)343-15-62", user));
+        contacts.add(new Contact("home phone", "(095)343-15-62", user));
         products.add(new Product("food", 10.2, user));
         products.add(new Product("phone", 1000.0, user));
         products.add(new Product("phone", 1000.0, user2));
