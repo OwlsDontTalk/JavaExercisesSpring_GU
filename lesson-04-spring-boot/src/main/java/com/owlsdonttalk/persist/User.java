@@ -1,19 +1,27 @@
 package com.owlsdonttalk.persist;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
+    @Column(unique = true, nullable = false)
     private String username;
 
     @NotEmpty
+    @Column(nullable = false, length = 512)
     private String password;
 
     @NotEmpty
+    @Transient
     private String matchingPassword;
 
     @Email
