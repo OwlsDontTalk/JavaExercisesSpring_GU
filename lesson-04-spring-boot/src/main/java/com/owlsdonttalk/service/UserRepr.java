@@ -1,40 +1,38 @@
-package com.owlsdonttalk.persist;
+package com.owlsdonttalk.service;
 
-import com.owlsdonttalk.service.UserRepr;
+import com.owlsdonttalk.persist.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+//DTO - data transfer object
+public class UserRepr {
 
-@Entity
-@Table(name = "users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @NotEmpty
     private String username;
 
-    @Column(nullable = false, length = 512)
+    @NotEmpty
     private String password;
 
-    @Column
+    @NotEmpty
+    private String matchingPassword;
+
+    @Email
     private String email;
 
-    @Column
     private Integer age;
 
-    public User() {
+    public UserRepr() {
     }
 
-    public User(String username) {
+    public UserRepr(String username) {
         this.username = username;
     }
 
-    public User(UserRepr user) {
+    public UserRepr(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
@@ -74,22 +72,19 @@ public class User {
         this.email = email;
     }
 
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
+    }
+
     public Integer getAge() {
         return age;
     }
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                '}';
     }
 }

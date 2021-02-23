@@ -1,16 +1,20 @@
 package com.owlsdonttalk.controller;
 
-import com.owlsdonttalk.persist.User;
-import com.owlsdonttalk.persist.UserRepository;
+import com.owlsdonttalk.service.UserRepr;
+import com.owlsdonttalk.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -18,18 +22,30 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
-    public String listPage(Model model) {
+    public String listPage(Model model,
+                           @RequestParam("usernameFilter") Optional<String> usernameFilter,
+                           @RequestParam("ageMinFilter") Optional<Integer> ageMinFilter,
+                           @RequestParam("ageMaxFilter") Optional<Integer> ageMaxFilter,
+                           @RequestParam("page") Optional<Integer> page,
+                           @RequestParam("size") Optional<Integer> size) {
         logger.info("List page requested");
 
-        model.addAttribute("users", userRepository.findAll());
+        Page<UserRepr> users = userService.findWithFilter(
+                usernameFilter.filter(s -> !s.isBlank()).orElse(null),
+                ageMinFilter.orElse(null),
+                ageMaxFilter.orElse(null),
+                page.orElse(1) - 1,
+                size.orElse(3)
+        );
+        model.addAttribute("users", users);
         return "user";
     }
 
@@ -37,12 +53,13 @@ public class UserController {
     public String editPage(@PathVariable("id") Long id, Model model) {
         logger.info("Edit page for id {} requested", id);
 
-        model.addAttribute("user", userRepository.findById(id));
+        model.addAttribute("user", userService.findById(id)
+                .orElseThrow(NotFoundException::new));
         return "user_form";
     }
 
     @PostMapping("/update")
-    public String update(@Valid User user, BindingResult result) {
+    public String update(@Valid @ModelAttribute("user") UserRepr user, BindingResult result, Model model) {
         logger.info("Update endpoint requested");
 
         if (result.hasErrors()) {
@@ -53,36 +70,31 @@ public class UserController {
             return "user_form";
         }
 
-        if (user.getId() != null) {
-            logger.info("Updating user with id {}", user.getId());
-            userRepository.update(user);
-        } else {
-            logger.info("Creating new user");
-            userRepository.insert(user);
-        }
+        logger.info("Updating user with id {}", user.getId());
+        userService.save(user);
         return "redirect:/user";
     }
 
     @GetMapping("/new")
-    public String createUser(Model model) {
-        logger.info("Creating new user");
-        model.addAttribute("user", new User());
+    public String create(Model model) {
+        logger.info("Create new user request");
+
+        model.addAttribute("user", new UserRepr());
         return "user_form";
     }
 
-    @PostMapping("/new/add")
-    public String createNewUser(@RequestParam("name") String name){
-        this.userRepository.insert(new User(name));
-        return "redirect:/user";
-    }
-
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String remove(@PathVariable("id") Long id) {
+        logger.info("User delete request");
 
-        logger.info("Removing user with id {}", id);
-        this.userRepository.delete(id);
+        userService.delete(id);
         return "redirect:/user";
     }
 
-
+    @ExceptionHandler
+    public ModelAndView notFoundExceptionHandler(NotFoundException ex) {
+        ModelAndView mav = new ModelAndView("not_found");
+        mav.setStatus(HttpStatus.NOT_FOUND);
+        return mav;
+    }
 }
