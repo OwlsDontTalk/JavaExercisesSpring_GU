@@ -7,6 +7,7 @@ import com.owlsdonttalk.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
+//TODO write methods for product controller
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -33,7 +36,8 @@ public class ProductController {
     @GetMapping
     public String listPage(Model model) {
         logger.info("List page requested");
-
+        List<ProductRepr> products = productService.findAll();
+        model.addAttribute("products", products);
         return "product";
     }
 
