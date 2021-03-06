@@ -51,23 +51,8 @@
                 </thead>
                 <tbody>
                 <tr th:if="${products.hasContent()}" th:each="product : ${products.content}">
-                    <th th:text="${product.id}" scope="row">1</th>
-                    <td th:text="${product.name}">Alex</td>
-                    <td th:text="${product.price}">21</td>
-                    <td th:text="${product.description}">21</td>
-                    <td>
-                        <a class="btn btn-success" th:href="@{/product/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
-                        <form class="d-inline" th:method="delete" th:action="@{/product/{id}(id = ${product.id})}">
-                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                        </form>
-                    </td>
+                    1
                 </tr>
-
-                <tr th:unless="${products.hasContent()}">
-                    <td colspan="4">No data</td>
-                </tr>
-
-                </tbody>
             </table>
         </div>
 

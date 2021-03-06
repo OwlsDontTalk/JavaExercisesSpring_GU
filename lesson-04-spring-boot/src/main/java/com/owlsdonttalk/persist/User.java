@@ -1,11 +1,7 @@
 package com.owlsdonttalk.persist;
 
 import com.owlsdonttalk.service.UserRepr;
-
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-
 
 @Entity
 @Table(name = "users")

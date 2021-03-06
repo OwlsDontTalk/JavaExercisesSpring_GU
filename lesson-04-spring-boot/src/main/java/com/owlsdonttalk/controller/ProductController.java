@@ -1,9 +1,7 @@
 package com.owlsdonttalk.controller;
 
-import com.owlsdonttalk.service.ProductRepr;
-import com.owlsdonttalk.service.ProductService;
-import com.owlsdonttalk.service.ProductReprImpl;
-import com.owlsdonttalk.service.UserService;
+import com.owlsdonttalk.persist.Product;
+import com.owlsdonttalk.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,7 @@ public class ProductController {
     @GetMapping
     public String listPage(Model model) {
         logger.info("List page requested");
-        List<ProductRepr> products = productService.findAll();
+        List<ProductRepr> products = productService.findWithFilter("asd");
         model.addAttribute("products", products);
         return "product";
     }

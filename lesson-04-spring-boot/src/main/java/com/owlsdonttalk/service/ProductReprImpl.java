@@ -2,9 +2,7 @@ package com.owlsdonttalk.service;
 
 import com.owlsdonttalk.persist.Product;
 import com.owlsdonttalk.persist.ProductRepository;
-import com.owlsdonttalk.persist.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +26,8 @@ public class ProductReprImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductRepr> findWithFilter(String productnameFilter) {
-        return null;
+    public List<ProductRepr> findWithFilter(String name) {
+        return findAll();
     }
 
     @Override

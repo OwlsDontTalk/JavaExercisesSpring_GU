@@ -7,12 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<User> {
+public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
-//    List<User> findUserByNameLike(String name);
-//
-//    @Query("select p from Product p " +
-//            "where (p.name like :name or :name is null)")
-//    List<User> findWithFilter(@Param("username") String usernameFilter);
-
+    List<Product> findProductByNameLike(String name);
 }

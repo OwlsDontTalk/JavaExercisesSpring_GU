@@ -1,7 +1,6 @@
 package com.owlsdonttalk.persist;
 
 import com.owlsdonttalk.service.ProductRepr;
-
 import javax.persistence.*;
 
 @Entity
