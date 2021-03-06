@@ -1,8 +1,6 @@
 package com.owlsdonttalk.service;
 
 import com.owlsdonttalk.persist.User;
-
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
