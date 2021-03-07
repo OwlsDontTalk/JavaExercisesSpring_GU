@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
-//TODO write methods for product controller
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -34,7 +33,7 @@ public class ProductController {
     @GetMapping
     public String listPage(Model model) {
         logger.info("List page requested");
-        List<ProductRepr> products = productService.findWithFilter("asd");
+        Page<ProductRepr> products = productService.findWithFilter(null, 0, 2);
         model.addAttribute("products", products);
         return "product";
     }

@@ -1,8 +1,10 @@
 package com.owlsdonttalk.service;
 
-import com.owlsdonttalk.persist.Product;
-import com.owlsdonttalk.persist.ProductRepository;
+import com.owlsdonttalk.persist.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +28,18 @@ public class ProductReprImpl implements ProductService {
     }
 
     @Override
-    public List<ProductRepr> findWithFilter(String name) {
-        return findAll();
+    public Page<ProductRepr> findWithFilter(String name, Integer page, Integer size) {
+        Specification<Product> spec = Specification.where(null);
+        if (name != null && !name.isBlank()) {
+            spec = spec.and(ProductSpecification.nameLike(name));
+        }
+        return productRepository.findAll(spec, PageRequest.of(page, size)).map(ProductRepr::new);
     }
 
     @Override
     public Optional<ProductRepr> findById(long id) {
-        return Optional.empty();
+        return productRepository.findById(id)
+                .map(ProductRepr::new);
     }
 
     @Override

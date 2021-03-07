@@ -2,6 +2,8 @@ package com.owlsdonttalk.rest;
 
 import com.owlsdonttalk.controller.BadRequestException;
 import com.owlsdonttalk.controller.NotFoundException;
+import com.owlsdonttalk.service.ProductRepr;
+import com.owlsdonttalk.service.ProductService;
 import com.owlsdonttalk.service.UserRepr;
 import com.owlsdonttalk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,50 +15,47 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/user")
-public class UserResource {
+@RequestMapping("/api/v1/product")
+public class ProductResource {
 
-    private final UserService userService;
+
+    private final ProductService productService;
 
     @Autowired
-    public UserResource(UserService userService) {
-        this.userService = userService;
+    public ProductResource(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping(path = "/all", produces = "application/json")
-    public List<UserRepr> findAll(){
-        return userService.findAll().stream()
-                .peek(u -> u.setPassword(null))
-                .collect(Collectors.toList());
+    public List<ProductRepr> findAll(){
+        return productService.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public UserRepr finById(@PathVariable("id") Long id){
-        UserRepr userRepr = userService.findById(id).orElseThrow(NotFoundException::new);
-        userRepr.setPassword(null);
-        return userRepr;
+    public ProductRepr finById(@PathVariable("id") Long id){
+        return productService.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @PostMapping(consumes = "application/json")
-    public UserRepr create(@RequestBody UserRepr userRepr){
-        if(userRepr.getId() != null){
+    public ProductRepr create(@RequestBody ProductRepr productRepr){
+        if(productRepr.getId() != null){
             throw new BadRequestException();
         }
-        userService.save(userRepr);
-        return userRepr;
+        productService.save(productRepr);
+        return productRepr;
     }
 
     @PutMapping(consumes = "application/json")
-    public void update(@RequestBody UserRepr userRepr){
-        if(userRepr.getId() == null){
+    public void update(@RequestBody ProductRepr productRepr){
+        if(productRepr.getId() == null){
             throw new BadRequestException();
         }
-        userService.save(userRepr);
+        productService.save(productRepr);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){
-        userService.delete(id);
+        productService.delete(id);
     }
 
     @ExceptionHandler
@@ -68,4 +67,5 @@ public class UserResource {
     public ResponseEntity<String> badRequestException(BadRequestException ex){
         return new ResponseEntity<>("Bad request", HttpStatus.NOT_FOUND);
     }
+
 }
