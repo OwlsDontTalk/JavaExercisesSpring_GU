@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="row py-2">
-        <div class="col-12">
+        <div class="col-12" sec:authorize="hasRole('ROLE_ADMIN')">
             <a class="btn btn-primary" th:href="@{/product/new}">Добавить</a>
         </div>
 
@@ -35,7 +35,7 @@
                     <td th:text="${product.name}">Alex</td>
                     <td th:text="${product.description}">21</td>
                     <td th:text="${product.price}">21</td>
-                    <td>
+                    <td sec:authorize="hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')">
                         <a class="btn btn-success" th:href="@{/product/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
                         <form class="d-inline" th:method="delete" th:action="@{/product/{id}(id = ${product.id})}">
                             <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
