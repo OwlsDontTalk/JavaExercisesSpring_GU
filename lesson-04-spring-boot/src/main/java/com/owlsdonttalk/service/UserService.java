@@ -11,7 +11,7 @@ public interface UserService {
     Page<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge,
                                   Integer page, Integer size);
 
-    Optional<UserRepr> findById(long id);
+    Optional<UserRepr> findById(Long id);
 
     void save(UserRepr user);
 

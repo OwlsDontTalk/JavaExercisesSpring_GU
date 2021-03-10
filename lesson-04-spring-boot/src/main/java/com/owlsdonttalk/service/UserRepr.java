@@ -1,5 +1,6 @@
 package com.owlsdonttalk.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.owlsdonttalk.persist.User;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,9 +13,11 @@ public class UserRepr {
     @NotEmpty
     private String username;
 
+
     @NotEmpty
     private String password;
 
+    @JsonIgnore
     @NotEmpty
     private String matchingPassword;
 
