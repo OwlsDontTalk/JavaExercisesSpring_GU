@@ -1,9 +1,13 @@
 package com.owlsdonttalk.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.owlsdonttalk.persist.Role;
 import com.owlsdonttalk.persist.User;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 //DTO - data transfer object
 public class UserRepr {
@@ -26,6 +30,8 @@ public class UserRepr {
 
     private Integer age;
 
+    private Set<Role> roles;
+
     public UserRepr() {
     }
 
@@ -39,6 +45,8 @@ public class UserRepr {
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.age = user.getAge();
+        this.roles = new HashSet<>(user.getRoles());
+
     }
 
     public Long getId() {
@@ -87,5 +95,13 @@ public class UserRepr {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

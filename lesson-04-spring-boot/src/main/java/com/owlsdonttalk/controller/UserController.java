@@ -1,5 +1,6 @@
 package com.owlsdonttalk.controller;
 
+import com.owlsdonttalk.persist.RoleRepository;
 import com.owlsdonttalk.service.UserRepr;
 import com.owlsdonttalk.service.UserService;
 import org.slf4j.Logger;
@@ -24,9 +25,12 @@ public class UserController {
 
     private final UserService userService;
 
+    private final RoleRepository roleRepository;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RoleRepository roleRepository) {
         this.userService = userService;
+        this.roleRepository = roleRepository;
     }
 
     @GetMapping
@@ -55,12 +59,14 @@ public class UserController {
 
         model.addAttribute("user", userService.findById(id)
                 .orElseThrow(NotFoundException::new));
+        model.addAttribute("roles", roleRepository.findAll());
         return "user_form";
     }
 
     @PostMapping("/update")
     public String update(@Valid @ModelAttribute("user") UserRepr user, BindingResult result, Model model) {
         logger.info("Update endpoint requested");
+        model.addAttribute("roles", roleRepository.findAll());
 
         if (result.hasErrors()) {
             return "user_form";
@@ -79,6 +85,7 @@ public class UserController {
     public String create(Model model) {
         logger.info("Create new user request");
 
+        model.addAttribute("roles", roleRepository.findAll());
         model.addAttribute("user", new UserRepr());
         return "user_form";
     }
