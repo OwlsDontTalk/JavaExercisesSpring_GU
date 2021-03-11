@@ -1,6 +1,5 @@
 package com.owlsdonttalk.persist;
 
-import com.owlsdonttalk.service.ProductRepr;
 import javax.persistence.*;
 
 @Entity
@@ -27,7 +26,7 @@ public class Product {
         this.name = name;
     }
 
-    public Product(ProductRepr product){
+    public Product(Product product){
         this.id = product.getId();
         this.description = product.getDescription();
         this.name = product.getName();

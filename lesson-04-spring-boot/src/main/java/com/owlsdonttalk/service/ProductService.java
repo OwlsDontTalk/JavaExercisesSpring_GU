@@ -3,18 +3,22 @@ package com.owlsdonttalk.service;
 
 import com.owlsdonttalk.persist.Product;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<ProductRepr> findAll();
 
-    Page<ProductRepr> findWithFilter(String name, Integer page, Integer size);
+    Page<Product> findWithFilter(Optional<String> nameFilter,
+                                    Optional<Integer> page,
+                                 Optional<Integer> size);
 
-    Optional<ProductRepr> findById(long id);
+    List<Product> findAll();
 
-    void save(ProductRepr user);
+    Optional<Product> findById(Long id);
 
-    void delete(long id);
+    void save(Product product);
+
+    void deleteById(Long id);
 }

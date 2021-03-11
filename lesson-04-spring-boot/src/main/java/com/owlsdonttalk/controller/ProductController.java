@@ -1,6 +1,6 @@
 package com.owlsdonttalk.controller;
 
-import com.owlsdonttalk.service.ProductRepr;
+import com.owlsdonttalk.persist.Product;
 import com.owlsdonttalk.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/product")
@@ -30,10 +32,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public String listPage(Model model) {
-        logger.info("List page requested");
-        Page<ProductRepr> products = productService.findWithFilter(null, 0, 5);
-        model.addAttribute("products", products);
+    public String indexProductPage(Model model,
+                                   @RequestParam(name = "nameFilter") Optional<String> nameFilter,
+                                   @RequestParam(name = "page") Optional<Integer> page,
+                                   @RequestParam(name = "size") Optional<Integer> size) {
+        logger.info("Product page update");
+        model.addAttribute("products", productService.findWithFilter(nameFilter,
+                page, size));
         return "product";
     }
 
@@ -45,7 +50,7 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute("product") ProductRepr product, BindingResult result, Model model) {
+    public String update(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
         logger.info("Update endpoint requested");
 
         if (result.hasErrors()) {
@@ -63,7 +68,7 @@ public class ProductController {
     public String create(Model model) {
         logger.info("Create new product request");
 
-        model.addAttribute("product", new ProductRepr());
+        model.addAttribute("product", new Product());
         return "product_form";
     }
 
