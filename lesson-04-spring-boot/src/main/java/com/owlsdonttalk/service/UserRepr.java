@@ -17,7 +17,7 @@ public class UserRepr {
     @NotEmpty
     private String username;
 
-
+    @JsonIgnore
     @NotEmpty
     private String password;
 

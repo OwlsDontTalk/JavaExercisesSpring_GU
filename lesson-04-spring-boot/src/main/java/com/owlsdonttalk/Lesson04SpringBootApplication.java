@@ -11,8 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 // http://localhost:8080/spring-mvc-app/v3/api-docs/
 // https://www.baeldung.com/spring-rest-openapi-documentation
 
-//TODO - добавить форму логина
-
+//TODO
+// 1. Cart resource
+// 2. Cart controllerw
 @SpringBootApplication
 public class Lesson04SpringBootApplication {
 

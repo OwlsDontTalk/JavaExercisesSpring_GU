@@ -34,9 +34,10 @@ public class SecurityConfiguration {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
+                    .csrf().disable()
                     .authorizeRequests()
                     .antMatchers("/**/*.css", "/**/*.js").permitAll()
-                    .antMatchers("/product/**").permitAll()
+                    .antMatchers("/product/**", "/cart/**").permitAll()
                     .antMatchers("/user/**").authenticated()
                     .and()
                     .formLogin()

@@ -30,9 +30,12 @@
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/product}">Products</a>
             </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item active">
+                <a class="nav-link" th:href="@{/cart}">Cart</a>
+            </li>
         </ul>
 
-        <!-- TODO добавить кнопку логин -->
+
 
         <form sec:authorize="isAuthenticated()"
               th:action="@{/logout}" th:method="post"

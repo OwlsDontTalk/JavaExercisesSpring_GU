@@ -63,5 +63,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<LineItem> findAllItemsForUser(long userId) {
         return new ArrayList<>(lineItemsMap.get(userId).keySet());
+
     }
 }
