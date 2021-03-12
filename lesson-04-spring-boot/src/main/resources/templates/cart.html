@@ -28,9 +28,9 @@
 
                 <tbody>
                 <tr th:each="item : ${items}">
-                    <th th:text="${items.get(0).getProduct().getDescription() }" scope="row"> </th>
-                   <th th:text="${items.get(0).getQty() }" scope="row"> </th>
-                    <th th:text="${items.get(0).getProduct().getPrice() }" scope="row"> </th>
+                    <th th:text="${items.get(itemStat.index).getProduct().getDescription() }" scope="row"> </th>
+                   <th th:text="${items.get(itemStat.index).getQty() }" scope="row"> </th>
+                    <th th:text="${items.get(itemStat.index).getProduct().getPrice() }" scope="row"> </th>
                 </tr>
 
                 </tbody>
