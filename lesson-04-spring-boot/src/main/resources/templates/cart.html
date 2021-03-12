@@ -14,18 +14,26 @@
             <table class="table table-bordered my-2">
                 <thead>
                 <tr>
-                    <th scope="col">Id
+                    <th scope="col">Product
                         <a href="#"><i class="fa fa-sort-down"></i></a>
                     </th>
-                    <th scope="col">Productname
+                    <th scope="col">QTY
                         <a href="#"><i class="fa fa-sort-down"></i></a>
                     </th>
-                    <th scope="col">qty
+                    <th scope="col">Price
                         <a href="#"><i class="fa fa-sort-down"></i></a>
                     </th>
-                    <th scope="col">price</th>
                 </tr>
                 </thead>
+
+                <tbody>
+                <tr th:each="item : ${items}">
+                    <th th:text="${items.get(0).getProduct().getDescription() }" scope="row"> </th>
+                   <th th:text="${items.get(0).getQty() }" scope="row"> </th>
+                    <th th:text="${items.get(0).getProduct().getPrice() }" scope="row"> </th>
+                </tr>
+
+                </tbody>
 
             </table>
         </div>
